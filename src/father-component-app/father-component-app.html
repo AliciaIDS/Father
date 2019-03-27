@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/children1-component/children1-component.html">
-<link rel="import" href="../../bower_components/children2-component/children1-component.html">
+<link rel="import" href="../../bower_components/children2-component/children2-component.html">
 
 <dom-module id="father-component-app">
   <template>
@@ -9,7 +9,15 @@
         display: block;
       }
     </style>
-    <h2>Hello [[prop1]]!</h2>
+
+    <template is= 'dom-if' if='[[isVisible]1]'>
+      <children1-component on-visible-list="visibleListHandler" on-visible-table="visibleTableHandler"></children1-component>
+    </template>
+
+    <template is='dom-if' if='[[isVisible]]'>
+      <children2-component has-list='[[hasList]]' has-table=[[hasTable]]></children2-component>
+    </template>
+
   </template>
 
   <script>
@@ -21,9 +29,21 @@
       static get is() { return 'father-component-app'; }
       static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'father-component-app'
+          isVisible1:{
+            type:Boolean,
+            value:true
+          },
+          isVisible2:{
+            type:Boolean,
+            value:false
+          },
+          hasList:{
+            type:Boolean,
+            visible:false
+          },
+          hasTable:{
+            type:Boolean,
+            visible:false
           }
         };
       }
